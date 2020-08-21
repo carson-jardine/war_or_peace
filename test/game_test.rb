@@ -1,10 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/card'
-require './lib/deck'
-require './lib/player'
-require './lib/turn'
-require './lib/game'
+require './war_or_peace_runner'
 
 class GameTest < Minitest::Test
   def setup
@@ -25,12 +21,18 @@ class GameTest < Minitest::Test
   end
 
   def test_it_exists
-
+    skip
     assert_instance_of Game, @game
   end
 
   def test_welcome_message
-    expected ="Welcome to War! (or Peace) This game will be played with 52 cards.\n The players today are #{@player1} and #{@player2}.\n Type 'GO' to start the game!\n ------------------------------------------------------------------"
-    assert_equal expected, @game.welcome_message
+    skip
+    assert_equal "GO", @game.welcome_message
+  end
+
+  def test_turn_message
+    @turn.type = :basic
+
+    assert_equal "Turn 1: Megan won 2 cards"
   end
 end

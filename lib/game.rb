@@ -1,28 +1,27 @@
 class Game
-  attr_reader :turn_count
 
   def initialize(player1, player2)
     @player1 = player1
     @player2 = player2
-    @standard_deck = []
     @turn_count = 0
   end
 
   def create_decks
     suits = [:heart, :diamond, :club, :spade]
+    standard_deck = []
 
     suits.each do |suit|
       2.upto(10) do |number|
-        @standard_deck << Card.new(suit, "#{number}", number)
+        standard_deck << Card.new(suit, "#{number}", number)
       end
-      @standard_deck << Card.new(suit, "Jack", 11)
-      @standard_deck << Card.new(suit, "Queen", 12)
-      @standard_deck << Card.new(suit, "King", 13)
-      @standard_deck << Card.new(suit, "Ace", 14)
+      standard_deck << Card.new(suit, "Jack", 11)
+      standard_deck << Card.new(suit, "Queen", 12)
+      standard_deck << Card.new(suit, "King", 13)
+      standard_deck << Card.new(suit, "Ace", 14)
     end
-    @standard_deck.shuffle!
-    deck1 = Deck.new(@standard_deck[0..25])
-    deck2 = Deck.new(@standard_deck[26..52])
+    standard_deck.shuffle!
+    deck1 = Deck.new(standard_deck[0..25])
+    deck2 = Deck.new(standard_deck[26..52])
 
     @player1 = Player.new("Megan", deck1)
     @player2 = Player.new("Aurora", deck2)

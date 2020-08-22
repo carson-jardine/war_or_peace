@@ -57,7 +57,6 @@ class Game
 
     if start == "GO"
       @turn_count = 1
-      # require "pry"; binding.pry
       until @player1.has_lost? || @player2.has_lost? do
 
         @turn = Turn.new(@player1, @player2)
@@ -76,6 +75,4 @@ class Game
       p "*~*~*~* #{winner_name} has won the game! *~*~*~*"
     end
   end
-
-
 end

@@ -35,13 +35,13 @@ class Turn
 
   def winner
     if self.type == :basic
-      if (top_card(@player1) > top_card(@player2))
+      if ((top_card(@player1).to_i) > (top_card(@player2).to_i))
          @player1
       else
         @player2
       end
     elsif self.type == :war
-      if (third_card(@player1) > third_card(@player2))
+      if ((third_card(@player1).to_i) > (third_card(@player2).to_i))
         @player1
       else
         @player2
@@ -74,7 +74,9 @@ class Turn
   end
 
   def award_spoils(winner)
-    winner.deck.cards << @spoils_of_war
-    winner.deck.cards.flatten!
+    unless winner.class == String
+      winner.deck.cards << @spoils_of_war
+      winner.deck.cards.flatten!
+    end
   end
 end

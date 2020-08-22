@@ -20,12 +20,13 @@ class Game
       standard_deck << Card.new(suit, "Ace", 14)
     end
     standard_deck.shuffle!
-    deck1 = Deck.new(standard_deck[0..25])
-    deck2 = Deck.new(standard_deck[26..52])
+    @deck1 = Deck.new(standard_deck[0..25])
+    @deck2 = Deck.new(standard_deck[26..52])
+  end
 
-    @player1 = Player.new("Megan", deck1)
-    @player2 = Player.new("Aurora", deck2)
-
+  def create_players
+    @player1 = Player.new("Megan", @deck1)
+    @player2 = Player.new("Aurora", @deck2)
   end
 
   def welcome_message
@@ -52,6 +53,7 @@ class Game
 
   def start
     create_decks
+    create_players
     welcome_message
     start = gets.chomp.upcase
 

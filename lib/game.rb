@@ -1,32 +1,32 @@
 class Game
-  attr_reader :turn_count
 
   def initialize(player1, player2)
     @player1 = player1
     @player2 = player2
-    @standard_deck = []
     @turn_count = 0
   end
 
   def create_decks
     suits = [:heart, :diamond, :club, :spade]
+    standard_deck = []
 
     suits.each do |suit|
       2.upto(10) do |number|
-        @standard_deck << Card.new(suit, "#{number}", number)
+        standard_deck << Card.new(suit, "#{number}", number)
       end
-      @standard_deck << Card.new(suit, "Jack", 11)
-      @standard_deck << Card.new(suit, "Queen", 12)
-      @standard_deck << Card.new(suit, "King", 13)
-      @standard_deck << Card.new(suit, "Ace", 14)
+      standard_deck << Card.new(suit, "Jack", 11)
+      standard_deck << Card.new(suit, "Queen", 12)
+      standard_deck << Card.new(suit, "King", 13)
+      standard_deck << Card.new(suit, "Ace", 14)
     end
-    @standard_deck.shuffle!
-    deck1 = Deck.new(@standard_deck[0..25])
-    deck2 = Deck.new(@standard_deck[26..52])
+    standard_deck.shuffle!
+    @deck1 = Deck.new(standard_deck[0..25])
+    @deck2 = Deck.new(standard_deck[26..52])
+  end
 
-    @player1 = Player.new("Megan", deck1)
-    @player2 = Player.new("Aurora", deck2)
-
+  def create_players
+    @player1 = Player.new("Megan", @deck1)
+    @player2 = Player.new("Aurora", @deck2)
   end
 
   def welcome_message
@@ -53,12 +53,12 @@ class Game
 
   def start
     create_decks
+    create_players
     welcome_message
     start = gets.chomp.upcase
 
     if start == "GO"
       @turn_count = 1
-      # require "pry"; binding.pry
       until @player1.has_lost? || @player2.has_lost? do
 
         @turn = Turn.new(@player1, @player2)
@@ -77,6 +77,4 @@ class Game
       p "*~*~*~* #{winner_name} has won the game! *~*~*~*"
     end
   end
-
-
 end
